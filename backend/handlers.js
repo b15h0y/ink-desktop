@@ -4,6 +4,7 @@ import { initProject, commitProject, getProjectState, cloneProject } from '../li
 import { gitPush, gitPull } from '../lib/git/utils';
 import { ParserManager } from '../lib/parser';
 import { getById } from '../lib/store/project-store';
+import { openProject } from '../lib/project-daw';
 
 const handlers = new Map();
 function registerHandler(event, handler) {
@@ -49,4 +50,8 @@ registerHandler('pull-project', async ({ projectId }) => {
 registerHandler(
   'clone-project',
   async ({ remoteUrl, projectFolder }) => await cloneProject(remoteUrl, projectFolder)
+);
+registerHandler(
+  'open-project',
+  async projectId => await openProject(projectId)
 );

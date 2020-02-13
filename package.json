@@ -85,5 +85,14 @@
     "semi": true,
     "singleQuote": true,
     "bracketSpacing": true
-  }
+  },
+  "protocols": [
+    {
+      "name": "ink",
+      "role": "Viewer",
+      "schemes": [
+        "ink"
+      ]
+    }
+  ]
 }

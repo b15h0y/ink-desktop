@@ -1,7 +1,8 @@
-import { app } from 'electron';
+import { app, dialog } from 'electron';
 import serve from 'electron-serve';
 import { ipcMain as ipc } from 'electron-better-ipc';
 import uuid from 'uuid/v1';
+import urlLib from 'url';
 import { createWindow, exitOnChange } from './helpers';
 import forkBackend from './helpers/fork-backend';
 
@@ -62,3 +63,13 @@ export async function initApp() {
     app.quit();
   });
 }
+
+app.setAsDefaultProtocolClient('ink')
+
+app.on('open-url', function (event, url) {
+  let urlObj = urlLib.parse(url, true)
+  dialog.showErrorBox('open-url', `You arrived from: ${urlObj}`)
+  if (urlObj.protocol === 'ink') {
+    event.preventDefault();
+  }
+})
