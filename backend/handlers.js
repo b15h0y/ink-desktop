@@ -1,7 +1,7 @@
 import * as userStore from '../lib/store/user-store';
 import * as projectStore from '../lib/store/project-store';
 import { initProject, commitProject, getProjectState, cloneProject } from '../lib/project';
-import { gitPush, gitPull } from '../lib/git/utils';
+import { gitPush, gitPull, getRemote } from '../lib/git/utils';
 import { ParserManager } from '../lib/parser';
 import { getById } from '../lib/store/project-store';
 import { openProject } from '../lib/project-daw';
@@ -54,4 +54,13 @@ registerHandler(
 registerHandler(
   'open-project',
   async projectId => await openProject(projectId)
+);
+
+registerHandler(
+  'get-remote', 
+  async ({ projectId }) => {
+    let project = getById(projectId) 
+    let remote = await getRemote(project.path, 'origin');
+    return remote.url();
+  }
 );

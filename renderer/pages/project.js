@@ -211,14 +211,16 @@ export default function Project({ id }) {
 
   const handleInvite = useCallback(async event => {
     event.preventDefault();
-
+    const remoteUrl = await requestFromWorker('get-remote', {
+        projectId: project.id
+    });
     const recipients = receipientValue.split(/[ ,]+/)
       .map(recipient => recipient.trim());
     await inviteCollaborators(
       recipients,
       invitationMessage,
       project.name,
-      slugify(project.name),
+      remoteUrl,
       user
     );
     setMailSent(true);

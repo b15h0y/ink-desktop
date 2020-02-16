@@ -4,7 +4,7 @@ export async function inviteCollaborators(
   collaborators,
   message,
   projectName,
-  projectHash,
+  remoteUrl,
   user
 ) {
   collaborators = !Array.isArray(collaborators)
@@ -23,9 +23,7 @@ export async function inviteCollaborators(
   });
 
   const body = `${user.email} has invited you to a new session on ununu for their project “${projectName}”.
-Listen here: https://ununu.io/collaborate/${projectHash}
-Start collaborating here: https://ununu.io/collaborate/${projectHash}/clone
-
+<p>Click <a href="ink://clone?name=${projectUrl}">here</a> to start collaborating</p>
 Their message:
 
 ${message}`.replace(/\n/g, '<br>');
